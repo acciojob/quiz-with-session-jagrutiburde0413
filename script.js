@@ -65,14 +65,14 @@ if (progress.length > 0) {
   });
 
   // Populate user answers from session storage
-  userAnswers.forEach((answer, index) => {
-    const questionIndex = `question-${index}`;
-    const inputElement = document.querySelector(`input[name="${questionIndex}"][value="${answer}"]`);
-    if (inputElement) {
-      inputElement.checked = true;
-    }
-  });
-}
+session storage
+userAnswers.forEach((answer, index) => {
+  const questionIndex = `question-${index}`;
+  const inputElement = document.querySelector(`input[name="${questionIndex}"][value="${answer}"]`);
+  if (inputElement) {
+    inputElement.checked = true;
+  }
+});
 
 // Display the quiz questions and choices
 function renderQuestions() {
