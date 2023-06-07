@@ -31,7 +31,6 @@ const questions = [
 ];
 
 
-
 // Retrieve progress from session storage
 let progress = JSON.parse(sessionStorage.getItem("progress")) || [];
 
@@ -44,20 +43,19 @@ if (progress.length > 0) {
   const userAnswers = progress.map((item) => item.answer);
 
   // Function to save user answers in session storage
- function saveProgress() {
-  const radioButtons = document.querySelectorAll("input[type=radio]");
-  const userProgress = [];
+  function saveProgress() {
+    const questionInputs = document.querySelectorAll("input[type=radio]:checked");
+    const userProgress = [];
 
-  radioButtons.forEach((input) => {
-    if (input.checked) {
+    questionInputs.forEach((input) => {
       const questionIndex = parseInt(input.name.split("-")[1]);
       const answer = input.value;
       userProgress.push({ index: questionIndex, answer: answer });
-    }
-  });
+    });
 
-  sessionStorage.setItem("progress", JSON.stringify(userProgress));
-}
+    sessionStorage.setItem("progress", JSON.stringify(userProgress));
+  }
+
   // Add event listener to save progress whenever a radio button is selected
   const radioButtons = document.querySelectorAll("input[type=radio]");
   radioButtons.forEach((radio) => {
@@ -65,14 +63,14 @@ if (progress.length > 0) {
   });
 
   // Populate user answers from session storage
-session storage
-userAnswers.forEach((answer, index) => {
-  const questionIndex = `question-${index}`;
-  const inputElement = document.querySelector(`input[name="${questionIndex}"][value="${answer}"]`);
-  if (inputElement) {
-    inputElement.checked = true;
-  }
-});
+  userAnswers.forEach((answer, index) => {
+    const questionIndex = `question-${index}`;
+    const inputElement = document.querySelector(`input[name="${questionIndex}"][value="${answer}"]`);
+    if (inputElement) {
+      inputElement.checked = true;
+    }
+  });
+}
 
 // Display the quiz questions and choices
 function renderQuestions() {
@@ -88,17 +86,17 @@ function renderQuestions() {
       const choice = question.choices[j];
       const choiceElement = document.createElement("input");
       choiceElement.setAttribute("type", "radio");
-	
       choiceElement.setAttribute("name", `question-${i}`);
       choiceElement.setAttribute("value", choice);
 
-     if (progress.length > 0) {
-  // Check if user has already answered this question
-  const previousAnswer = progress.find((item) => item.index === i);
-  if (previousAnswer && previousAnswer.answer === choice) {
-    choiceElement.checked = true;
-  }
-}
+      if (progress.length > 0) {
+        // Check if user has already answered this question
+        const previousAnswer = progress.find((item) => item.index === i);
+        if (previousAnswer && previousAnswer.answer === choice) {
+          choiceElement.setAttribute("checked", true);
+        }
+      }
+
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
       questionElement.appendChild(choiceText);
@@ -142,4 +140,7 @@ function calculateCorrectAnswers(userAnswers, correctAnswers) {
 
 // Call the function to render the questions
 renderQuestions();
+
+
+
 
