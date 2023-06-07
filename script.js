@@ -44,19 +44,20 @@ if (progress.length > 0) {
   const userAnswers = progress.map((item) => item.answer);
 
   // Function to save user answers in session storage
-  function saveProgress() {
-    const questionInputs = document.querySelectorAll("input[type=radio]:checked");
-    const userProgress = [];
+ function saveProgress() {
+  const radioButtons = document.querySelectorAll("input[type=radio]");
+  const userProgress = [];
 
-    questionInputs.forEach((input) => {
+  radioButtons.forEach((input) => {
+    if (input.checked) {
       const questionIndex = parseInt(input.name.split("-")[1]);
       const answer = input.value;
       userProgress.push({ index: questionIndex, answer: answer });
-    });
+    }
+  });
 
-    sessionStorage.setItem("progress", JSON.stringify(userProgress));
-  }
-
+  sessionStorage.setItem("progress", JSON.stringify(userProgress));
+}
   // Add event listener to save progress whenever a radio button is selected
   const radioButtons = document.querySelectorAll("input[type=radio]");
   radioButtons.forEach((radio) => {
@@ -87,7 +88,7 @@ function renderQuestions() {
       const choice = question.choices[j];
       const choiceElement = document.createElement("input");
       choiceElement.setAttribute("type", "radio");
-		  choiceElement.setAttribute("checked", true);
+	
       choiceElement.setAttribute("name", `question-${i}`);
       choiceElement.setAttribute("value", choice);
 
