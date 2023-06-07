@@ -90,12 +90,13 @@ function renderQuestions() {
       choiceElement.setAttribute("value", choice);
 
       if (progress.length > 0) {
-        // Check if user has already answered this question
-        const previousAnswer = progress.find((item) => item.index === i);
-        if (previousAnswer && previousAnswer.answer === choice) {
-          choiceElement.setAttribute("checked", true);
-        }
-      }
+  // Check if user has already answered this question
+  const previousAnswer = progress.find((item) => item.index === i);
+  if (previousAnswer && previousAnswer.answer === choice) {
+    choiceElement.checked = true;
+  }
+}
+
 
       const choiceText = document.createTextNode(choice);
       questionElement.appendChild(choiceElement);
