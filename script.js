@@ -67,6 +67,7 @@ if (progress.length > 0) {
     const inputElement = document.querySelector(`input[name="${questionIndex}"][value="${answer}"]`);
     if (inputElement) {
       inputElement.checked = true;
+		  inputElement.setAttribute("checked", "true");
     }
   });
 }
